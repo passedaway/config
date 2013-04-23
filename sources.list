@@ -1,0 +1,14 @@
+deb http://packages.linuxmint.com/ maya main upstream import
+deb-src http://packages.linuxmint.com/ maya main upstream import
+deb http://ftp.tku.edu.tw/Linux/LinuxMint/linuxmint/ maya main upstream import
+# deb http://archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse
+# deb http://archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse
+# deb http://security.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse
+# deb http://archive.canonical.com/ubuntu/ precise partner
+# deb http://packages.medibuntu.org/ precise free non-free
+
+deb http://ubuntu.cn99.com/ubuntu/ precise main restricted universe multiverse
+
+deb-src http://ftp.tku.edu.tw/Linux/LinuxMint/linuxmint/ maya main upstream import
+# deb http://archive.getdeb.net/ubuntu precise-getdeb apps
+# deb http://archive.getdeb.net/ubuntu precise-getdeb games
