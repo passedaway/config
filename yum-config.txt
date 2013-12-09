@@ -1,0 +1,59 @@
+全新以最小化包安装了64位的CentOS6.3系统，作为本地的Web服务器使用，现记录全过程
+第二步，配置网易163的yum源
+
+1. 下载repo文件
+    下载地址：http://mirrors.163.com/.help/CentOS6-Base-163.repo
+
+2. 备份并替换系统的repo文件
+[root@localhost ~]# cd /etc/yum.repos.d/
+[root@localhost ~]# mv CentOS-Base.repo CentOS-Base.repo.bak
+[root@localhost ~]# mv /root/CentOS6-Base-163.repo CentOS-Base.repo
+
+3. 执行yum源更新
+[root@localhost ~]# yum clean all
+[root@localhost ~]# yum makecache
+[root@localhost ~]# yum update
+
+4. 到此已结束，用yum安装一下文件，看是否OK
+[root@localhost ~]# yum install vim*
+
+5. 安装centos常用的软件包及工具
+    常见压缩工具 zip unzip bzip2
+[root@localhost ~]# yum -y install unzip zip bzip2 bzip2-devel
+  gcc gcc++编译器
+[root@localhost ~]# yum install gcc gcc-c++ -y
+  cmake编译器
+[root@localhost ~]# yum install cmake make -y
+  图片资源
+[root@localhost ~]# yum -y install gd libjpeg libjpeg-devel libpng libpng-devel freetype-devel
+  其它常用资源包工具
+[root@localhost ~]# yum -y install autoconf bison automake zlib* fiex* libxml* ncurses-devel libmcrypt* libtool-ltdl-devel*
+
+
+EPEL:
+	EPEL(http://fedoraproject.org/wiki/EPEL) 是由 Fedora 社区打造，为 RHEL 及衍生发行版如 CentOS、Scientific Linux 等提供高质量软件包的项目。
+	1，不用去换原来yum源，安装后会产生新repo
+
+	2，epel会有很多源地址，如果一个下不到，会去另外一个下
+
+	http://mirror.xfes.ru/fedora-epel/6/x86_64/ibus-table-chinese-scj-1.3.4-1.el6.noarch.rpm: [Errno 14] PYCURL ERROR 6 - ""
+	Trying other mirror.
+	http://mirrors.ustc.edu.cn/fedora/epel/6/x86_64/ibus-table-chinese-scj-1.3.4-1.el6.noarch.rpm: [Errno 14] PYCURL ERROR 6 - ""
+	Trying other mirror.
+	http://repo.boun.edu.tr/epel/6/x86_64/ibus-table-chinese-scj-1.3.4-1.el6.noarch.rpm: [Errno 14] PYCURL ERROR 6 - ""kjs
+
+	。。。。。。
+
+	3，更新时如果下载的包不全，就不会进行安装。这样的话，依赖关系可以保重
+
+	（我是在这里down的：http://mirrors.yun-idc.com/epel//6/x86_64/epel-release-6-8.noarch.rpm）
+	down完之后安装：
+	rpm -ivh epel-release-6-8.noarch.rpm
+	然后上面的命令即可进行安装或更新软件包。
+
+yum downloadonly
+	yum如果只下载软件，不进行安装，需要安装yum的插件，名字叫yum-downloadonly,安装此插件后，yum会支持两个开关
+	分别是：--downloadonly --downloaddir
+
+	yum install yum-downloadonly
+	yum install abcd... --downloadonly --downloaddir=./xxx
