@@ -1,0 +1,24 @@
+1. sshd_config
+ssh的连接登录延时一般来说是因为sshd默认打开了反向DNS解析的问题。
+
+修改ssh服务器的/etc/ssh/sshd_config，把UseDNS yes改为UseDNS no就可以了。
+
+2. nsswitch.conf
+编辑/etc/nsswitch.conf
+找到hosts那行，将其改成下面这样：
+hosts: files dns [NOTFOUND=return]
+
+3. sshd_config GSSAPI 
+ssh登录缓慢的问题通过修改sshd_config文件中的GSSAPI options
+
+#GSSAPI optinos
+#GSSAPIAuthentication no
+#GSSAPIAuthentication yes
+#GSSAPICleanupCredentials yes
+
+全部注释掉，然后重启SSHD服务。
+
+4. /etc/hosts
+	把客户端的ip和客户端的主机名写到/etc/hosts中，然后ssh登录即可。
+
+5. 
