@@ -12,3 +12,16 @@ deb http://ubuntu.cn99.com/ubuntu/ precise main restricted universe multiverse
 deb-src http://ftp.tku.edu.tw/Linux/LinuxMint/linuxmint/ maya main upstream import
 # deb http://archive.getdeb.net/ubuntu precise-getdeb apps
 # deb http://archive.getdeb.net/ubuntu precise-getdeb games
+
+#zhaocq
+# sohu debian
+#deb http://mirrors.sohu.com/debian/ lenny main non-free contrib
+#deb http://mirrors.sohu.com/debian/ lenny-proposed-updates main non-free contrib
+#deb-src http://mirrors.sohu.com/debian/ lenny main non-free contrib
+#deb-src http://mirrors.sohu.com/debian/ lenny-proposed-updates main non-free contrib
+
+# 163 debian 
+#deb http://mirrors.163.com/debian/ squeeze main non-free contrib
+#deb http://mirrors.163.com/debian/ squeeze-proposed-updates main non-free contrib
+#deb-src http://mirrors.163.com/debian/ squeeze main non-free contrib
+#deb-src http://mirrors.163.com/debian/ squeeze-proposed-updates main non-free contrib
