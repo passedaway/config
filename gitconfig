@@ -1,0 +1,14 @@
+[user]
+	name = echo Y2hhbmdxaW5nCg== | base64 -d
+	email = echo \"Y2hhbmdxaW5nLjEyMzBAMTYzLmNvbQo=\" | base64 -d
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[color]
+	diff = auto
+	branch = auto
+	status = auto
+	grep = auto
+	ui = auto
+	showbranch = auto
