@@ -153,3 +153,21 @@ au Bufread,BufNewFile *.txt setlocal ft=txt
 "F7 insert curent date & myname
 "should use this in insert mode
 imap <F7> <c-r>=strftime("%Y-%m-%d %H:%M:%S zhaocq")<cr>
+
+"add for python 2014-05-15 11:54:09 zhaocq
+set filetype=python
+au BufNewFile,BufRead *.py,*.pyw setf python
+
+" add for python complete 2014-05-15 12:00:28 zhaocq
+set ofu=syntaxcomplete#Complete
+"use 'ctrl+x ctrx+o' to complete, ctrl+n, next; ctrl+p, previous
+"esc to remove the select box
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType python runtime! autoload/pythoncomplete.vim
+
+" add for minibufexploer 2014-05-15 11:58:13 zhaocq
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+

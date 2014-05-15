@@ -3,10 +3,10 @@ $ =============================================================
 $ ========== USER MACROS ======================================
 $ =============================================================
 $
-|AUTHOR|    = 
-|AUTHORREF| = NO
-|EMAIL|     = 
-|COMPANY|   = 
+|AUTHOR|    = "echo \"Q2hhbmdxaW5nLFpoYW8K\" | base64 -d "
+|AUTHORREF| = tain
+|EMAIL|     = "echo \"Y2hhbmdxaW5nLjEyMzBAMTYzLmNvbQo=\" | base64 -d "
+|COMPANY|   = FreedomIsNotFree.com
 |COPYRIGHT| = Copyright (c) |YEAR|, |AUTHOR|
 |STYLE|     = default
 $
