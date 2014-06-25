@@ -153,3 +153,9 @@ au Bufread,BufNewFile *.txt setlocal ft=txt
 "F7 insert curent date & myname
 "should use this in insert mode
 imap <F7> <c-r>=strftime("%Y-%m-%d %H:%M:%S zhaocq")<cr>
+
+"add for minibufexplorer 2014-06-25 10:23:35 zhaocq
+let g:miniBufExplMapWindowNavVim=1
+let g:miniBufExplMapWindowNavArrows=1
+let g:miniBufExplMapCTabSwitchBufs=1
+let g:miniBufExplModSelTarget=1
