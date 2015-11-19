@@ -1,6 +1,5 @@
 set nocompatible " be iMproved, required
 filetype off	" required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -17,7 +16,7 @@ Plugin 'tpope/vim-fugitive'
 "pulgin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 "Git plugin not hosted on Github
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 "git repos on your local machine (i.e. when working on your own plugin)
 "Plugin 'file://home/gmarik/path/to/plugin'
 "The sparkup vim script is in a subdirectory of this repo called vimo"pass the
@@ -26,15 +25,23 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Avoid a name confilit with L9
 "Plugin 'user/L9', {'name': 'newL9'}
 "add plugin at here
+"Plugin 'bufferlist.vim'
+Plugin 'c.vim'
 Plugin 'bufexplorer.zip'
-Plugin 'bufferlist.vim'
 Plugin 'taglist.vim'
+Plugin 'winmanager'
+Plugin 'vim-powerline'
+Plugin 'neocomplcache'
+Plugin 'calendar.vim'
+Plugin 'cscope.vim'
+Plugin 'ctrlp.vim'
+Plugin 'minibufexplorerpp'
+Plugin 'The-NERD-tree'
 
 "All of your Plugins must be added before the following line
 call vundle#end()	"required
 filetype plugin indent on "required"
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
 "
 " Brief Help
 " :PluginList -lists configured plugins
@@ -46,23 +53,29 @@ filetype plugin indent on "required"
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+"powerline{
+set laststatus=2 "add for status line
+"set t_Co=256
+"let g:Powerline_symbols = 'unicode'
+"set encoding=utf8
+"}
 
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-   set fileencodings=ucs-bom,utf-8,latin1
-endif
+"search config{
+set hls " open highlight search
+"set nohls "close highlight search
+set ignorecase "for search ignore case
+"}
 
-"for search ignore case
-set ignorecase
-"add for status line
-set laststatus=2
-highlight StatusLine ctermfg=yellow ctermbg=blue
-function! CurDir()
-	let curdir = substitute(getcwd(),$HOME,"~","g")
-	return curdir
-endfunction
-set statusline=[%n]\ %F%m%r%h\ \|\ CWD:\ %r%{CurDir()}%h\ \|\ \%=\|\ line=%l/%L:%c\ \|\ %b
+"my-statusline{
+"highlight StatusLine ctermfg=yellow ctermbg=blue
+"function! CurDir()
+"	let curdir = substitute(getcwd(),$HOME,"~","g")
+"	return curdir
+"endfunction
+"set statusline=[%n]\ %F%m%r%h\ \|\ CWD:\ %r%{CurDir()}%h\ \|\ \%=\|\ line=%l/%L:%c\ \|\ %b
+"}
 
-set nocompatible	" Use Vim defaults (much better!)
+"misc{
 "set backup		" keep a backup file
 set ruler		" show the cursor position all the time
 " Don't wake up system with blinking cursor:
@@ -70,9 +83,10 @@ set ruler		" show the cursor position all the time
 let &guicursor = &guicursor . ",a:blinkon0"
 set fileencodings=ucs-bom,utf-8,cp936
 set fileencoding=utf-8
-set encoding=utf-8
 set nu
-" editor format
+"}
+
+" editor format{
 set autoindent
 set tabstop=4
 set shiftwidth=4
@@ -81,21 +95,23 @@ set incsearch
 "set mouse=a " mouse options
 colorscheme elflord " color scheme
 syntax enable
+"}
 
-filetype plugin on
-filetype indent on
+colorscheme elflord " color scheme
+syntax enable
 
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex" 
 
-" bufExplorer
+" bufExplorer{
 let g:bufExplorerSplitBelow=1
 let g:bufExplorerSortBy='name'
 let g:bufExplorerSplitHorzSize=12
 let g:bufExplorerUseCurrentWindow=1
 let g:bufExplorerSplitOutPathName=0
+"}
 
-" ctags & cscope options
+" ctags & cscope options{
 set tags=./tags,tags
 if has("cscope")
 	set csprg=/usr/bin/cscope
@@ -119,26 +135,45 @@ nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR> :cw<CR>
 nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
 nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
 nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+"}
 
-" nmap taglist
+" nmap taglist{
 nmap <silent> <F8> <ESC>:Tlist<RETURN>
 nmap <silent> <F5> <ESC>:TlistUpdate<RETURN>
 " taglist options
 let Tlist_Inc_Winwidth=0
 let Tlist_Use_Right_Window=0
 let Tlist_File_Fold_Auto_Close=1
+"}
 
-" txtbowser
+" txtbowser{
 syntax on
-filetype plugin on
 au Bufread,BufNewFile *.txt setlocal ft=txt
+"}
 
 "F7 insert curent date & myname
 "should use this in insert mode
 imap <F7> <c-r>=strftime("%Y-%m-%d %H:%M:%S zhaocq")<cr>
 
-"add for minibufexplorer 2014-06-25 10:23:35 zhaocq
+"add for minibufexplorer 2014-06-25 10:23:35 zhaocq{
 let g:miniBufExplMapWindowNavVim=1
 let g:miniBufExplMapWindowNavArrows=1
 let g:miniBufExplMapCTabSwitchBufs=1
 let g:miniBufExplModSelTarget=1
+"}
+
+"2015-11-19 12:00:27 zhaocq
+"nerdtree{
+let g:NERDTree_title="[NERDTree]"
+let g:winManagerWindowLayout="NERDTree|TagList"
+
+function! NERDTree_Start()
+	exec 'NERDTree'
+endfunction
+
+function! NERDTree_IsValid()
+	return 1
+endfunction
+
+nmap wm :WMToggle<CR>
+"}
