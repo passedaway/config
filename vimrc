@@ -1,3 +1,4 @@
+
 set nocompatible " be iMproved, required
 filetype off	" required
 " set the runtime path to include Vundle and initialize
@@ -85,7 +86,6 @@ set fileencodings=ucs-bom,utf-8,cp936
 set fileencoding=utf-8
 set nu
 "}
-
 " editor format{
 set autoindent
 set tabstop=4
@@ -93,8 +93,6 @@ set shiftwidth=4
 set backspace=2
 set incsearch
 "set mouse=a " mouse options
-colorscheme elflord " color scheme
-syntax enable
 "}
 
 colorscheme elflord " color scheme
