@@ -1,6 +1,7 @@
 
 set nocompatible " be iMproved, required
 filetype off	" required
+filetype plugin on
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -22,7 +23,7 @@ Plugin 'L9'
 "Plugin 'file://home/gmarik/path/to/plugin'
 "The sparkup vim script is in a subdirectory of this repo called vimo"pass the
 "path to set the runtimepath proprely.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Avoid a name confilit with L9
 "Plugin 'user/L9', {'name': 'newL9'}
 "add plugin at here
@@ -34,10 +35,12 @@ Plugin 'winmanager'
 Plugin 'vim-powerline'
 Plugin 'neocomplcache'
 Plugin 'calendar.vim'
-Plugin 'cscope.vim'
-Plugin 'ctrlp.vim'
+"Plugin 'cscope.vim'
+"Plugin 'ctrlp.vim'
 Plugin 'minibufexplorerpp'
 Plugin 'The-NERD-tree'
+
+Plugin 'sudo.vim'
 
 "All of your Plugins must be added before the following line
 call vundle#end()	"required
@@ -101,6 +104,12 @@ syntax enable
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex" 
 
+" c.vim {
+" ~/.vim/vundle/c.vim/plugin/c.vim
+let g:C_FormatDate = '%Y-%m-%d %H:%M:%S'
+let s:C_FormatDate = '%Y-%m-%d %H:%M:%S'
+" }
+
 " bufExplorer{
 let g:bufExplorerSplitBelow=1
 let g:bufExplorerSortBy='name'
@@ -112,7 +121,7 @@ let g:bufExplorerSplitOutPathName=0
 " ctags & cscope options{
 set tags=./tags,tags
 if has("cscope")
-	set csprg=/usr/bin/cscope
+	set csprg=/usr/local/bin/cscope
 	set csto=1
 	set cst
 	set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -122,18 +131,19 @@ if has("cscope")
 		cs add cscope.out
 	endif
 	set csverb
+	
+" key mappings for cscope
+	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
+	nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
+	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+"}
 endif
 
-" key mappings for cscope
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
-nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-"}
 
 " nmap taglist{
 nmap <silent> <F8> <ESC>:Tlist<RETURN>
@@ -164,6 +174,9 @@ let g:miniBufExplModSelTarget=1
 "nerdtree{
 let g:NERDTree_title="[NERDTree]"
 let g:winManagerWindowLayout="NERDTree|TagList"
+let g:NERDTreeWinPos="right"
+nmap <silent> <F9> <ESC>:NERDTree<RETURN>
+nmap <silent> <F10> <ESC>:NERDTreeClose<RETURN>
 
 function! NERDTree_Start()
 	exec 'NERDTree'
