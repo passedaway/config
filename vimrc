@@ -1,121 +1,129 @@
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-   set fileencodings=ucs-bom,utf-8,latin1
-endif
 
-"for search ignore case
-set ignorecase
-"add for status line
-set laststatus=2
-highlight StatusLine ctermfg=yellow ctermbg=blue
-function! CurDir()
-	let curdir = substitute(getcwd(),$HOME,"~","g")
-	return curdir
-endfunction
-set statusline=[%n]\ %F%m%r%h\ \|\ CWD:\ %r%{CurDir()}%h\ \|\ \%=\|\ line=%l/%L:%c\ \|\ %b
-
-set nocompatible	" Use Vim defaults (much better!)
-set bs=indent,eol,start		" allow backspacing over everything in insert mode
-"set ai			" always set autoindenting on
-"set backup		" keep a backup file
-set viminfo='20,\"50	" read/write a .viminfo file, don't store more
-			" than 50 lines of registers
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-
-" Only do this part when compiled with support for autocommands
-if has("autocmd")
-  augroup fedora
-  autocmd!
-  " In text files, always limit the width of text to 78 characters
-  " autocmd BufRead *.txt set tw=78
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost *
-  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-  \   exe "normal! g'\"" |
-  \ endif
-  " don't write swapfile on most commonly used directories for NFS mounts or USB sticks
-  autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
-  " start with spec file template
-  autocmd BufNewFile *.spec 0r /usr/share/vim/vimfiles/template.spec
-  augroup END
-endif
-
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add cscope.out
-   " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
-   endif
-   set csverb
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
+set nocompatible " be iMproved, required
+filetype off	" required
 filetype plugin on
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begine('~/some/path/here')
 
-if &term=="xterm"
-     set t_Co=8
-     set t_Sb=[4%dm
-     set t_Sf=[3%dm
-endif
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end
+" plugin on Github repo
+Plugin 'tpope/vim-fugitive'
+"pulgin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+"Git plugin not hosted on Github
+"Plugin 'git://git.wincent.com/command-t.git'
+"git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file://home/gmarik/path/to/plugin'
+"The sparkup vim script is in a subdirectory of this repo called vimo"pass the
+"path to set the runtimepath proprely.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Avoid a name confilit with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+"add plugin at here
+"Plugin 'bufferlist.vim'
+Plugin 'c.vim'
+Plugin 'bufexplorer.zip'
+Plugin 'taglist.vim'
+Plugin 'winmanager'
+Plugin 'vim-powerline'
+Plugin 'neocomplcache'
+Plugin 'calendar.vim'
+"Plugin 'cscope.vim'
+"Plugin 'ctrlp.vim'
+Plugin 'minibufexplorerpp'
+Plugin 'The-NERD-tree'
+
+Plugin 'sudo.vim'
+
+Plugin 'cocoa.vim'
+
+"All of your Plugins must be added before the following line
+call vundle#end()	"required
+filetype plugin indent on "required"
+" To ignore plugin indent changes, instead use:
+"
+" Brief Help
+" :PluginList -lists configured plugins
+" :PluginInstall -installs plugins; append `!` to update or just :
+" PluginUpdate
+" :PluginSearch foo -searches for foo; append `!` to refreash local cache
+" :PluginClean -confirms removal of unused plugins; append `!` to auto-approve
+" remove
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+"powerline{
+set laststatus=2 "add for status line
+"set t_Co=256
+"let g:Powerline_symbols = 'unicode'
+"set encoding=utf8
+"}
+
+"search config{
+set hls " open highlight search
+"set nohls "close highlight search
+set ignorecase "for search ignore case
+"}
+
+"my-statusline{
+"highlight StatusLine ctermfg=yellow ctermbg=blue
+"function! CurDir()
+"	let curdir = substitute(getcwd(),$HOME,"~","g")
+"	return curdir
+"endfunction
+"set statusline=[%n]\ %F%m%r%h\ \|\ CWD:\ %r%{CurDir()}%h\ \|\ \%=\|\ line=%l/%L:%c\ \|\ %b
+"}
+
+"misc{
+"set backup		" keep a backup file
+set ruler		" show the cursor position all the time
 " Don't wake up system with blinking cursor:
 " http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"
 set fileencodings=ucs-bom,utf-8,cp936
 set fileencoding=utf-8
-set encoding=utf-8
 set nu
-
-" editor format
+"}
+" editor format{
 set autoindent
 set tabstop=4
 set shiftwidth=4
 set backspace=2
 set incsearch
-set ruler
+"set mouse=a " mouse options
+"}
 
-" add by zhaocq, for tab repeace with space 
-" set expandtab
-"set tabstop=4
-"set shiftwidth=4
-" add over 
-
-" mouse options
-"set mouse=a
-
-" color scheme
-colorscheme elflord
-
+colorscheme elflord " color scheme
 syntax enable
-filetype plugin on
-filetype indent on
 
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex" 
 
-" bufExplorer
+" c.vim {
+" ~/.vim/vundle/c.vim/plugin/c.vim
+let g:C_FormatDate = '%Y-%m-%d %H:%M:%S'
+let s:C_FormatDate = '%Y-%m-%d %H:%M:%S'
+" }
+
+" bufExplorer{
 let g:bufExplorerSplitBelow=1
-let g:bufExplorerSortBy='name'
+let g:bufExplorerSortBy='mru'
 let g:bufExplorerSplitHorzSize=12
 let g:bufExplorerUseCurrentWindow=1
 let g:bufExplorerSplitOutPathName=0
+"}
 
-" ctags & cscope options
+" ctags & cscope options{
 set tags=./tags,tags
 if has("cscope")
-	set csprg=/usr/bin/cscope
+	set csprg=/usr/local/bin/cscope
 	set csto=1
 	set cst
 	set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -125,49 +133,60 @@ if has("cscope")
 		cs add cscope.out
 	endif
 	set csverb
+	
+" key mappings for cscope
+	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
+	nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
+	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+"}
 endif
 
-" key mappings for cscope
-nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR> :cw<CR>
-nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
-nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
-nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR> :cw<CR>
 
-" nmap taglist
+" nmap taglist{
 nmap <silent> <F8> <ESC>:Tlist<RETURN>
 nmap <silent> <F5> <ESC>:TlistUpdate<RETURN>
 " taglist options
 let Tlist_Inc_Winwidth=0
 let Tlist_Use_Right_Window=0
 let Tlist_File_Fold_Auto_Close=1
+"}
 
-" txtbowser
+" txtbowser{
 syntax on
-filetype plugin on
 au Bufread,BufNewFile *.txt setlocal ft=txt
+"}
 
 "F7 insert curent date & myname
 "should use this in insert mode
 imap <F7> <c-r>=strftime("%Y-%m-%d %H:%M:%S zhaocq")<cr>
 
-"add for python 2014-05-15 11:54:09 zhaocq
-set filetype=python
-au BufNewFile,BufRead *.py,*.pyw setf python
+"add for minibufexplorer 2014-06-25 10:23:35 zhaocq{
+let g:miniBufExplMapWindowNavVim=1
+let g:miniBufExplMapWindowNavArrows=1
+let g:miniBufExplMapCTabSwitchBufs=1
+let g:miniBufExplModSelTarget=1
+"}
 
-" add for python complete 2014-05-15 12:00:28 zhaocq
-set ofu=syntaxcomplete#Complete
-"use 'ctrl+x ctrx+o' to complete, ctrl+n, next; ctrl+p, previous
-"esc to remove the select box
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-"autocmd FileType python runtime! autoload/pythoncomplete.vim
+"2015-11-19 12:00:27 zhaocq
+"nerdtree{
+let g:NERDTree_title="[NERDTree]"
+let g:winManagerWindowLayout="NERDTree|TagList"
+let g:NERDTreeWinPos="right"
+nmap <silent> <F2> <ESC>:NERDTree<RETURN>
+nmap <silent> <F3> <ESC>:NERDTreeClose<RETURN>
 
-" add for minibufexploer 2014-05-15 11:58:13 zhaocq
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
+function! NERDTree_Start()
+	exec 'NERDTree'
+endfunction
 
+function! NERDTree_IsValid()
+	return 1
+endfunction
+
+nmap wm :WMToggle<CR>
+"}
